@@ -1,26 +1,76 @@
 
+@import url('https://fonts.googleapis.com/css?family=Nova+Flat'); // font-family: 'Nova Flat', cursive;
+
   $red: #d50000;
   $blue: #2962ff;
   $green:  #00c853;
   $yellow:  #ffd600;
-
+  $silver: #ecf0f1;
 
 body {
   background-color: #90a4ae;
 }
 
+
 #container {
   background-color: #263238;
   margin-left: auto;
   margin-right: auto;
-  height: 35em;
-  width: 50%;
-  margin-top: 5em;
+  height: auto;//35em;
+  width: 49.5%;
+  margin-top: 4em;
   border-radius: 50%;
   overflow: contain;
   text-align: center;
+  -webkit-box-shadow: 1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 
 }
+
+#center {
+  background-color: #263238;
+  height: 16em;
+  width: 16em;
+  border-radius: 100%;
+  position: absolute;
+  margin-top: 10em;
+  margin-left: 11.5em;
+  z-index: 1;
+
+  h2 {
+    color: $silver;
+    margin-top: 1em;
+    text-transform: uppercase;
+    font-family: 'Nova Flat', cursive;
+    font-weight: 800;
+    font-size: 2em;
+  }
+
+}
+
+
+button {
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 100%;
+  margin: 1em;
+  border: 3px solid black;
+
+  &:nth-child(odd){
+    background-color: yellow;
+  }
+
+  &:nth-child(even){
+    background-color: red;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+}
+
 
 #green {
   background-color: $green;
@@ -28,11 +78,15 @@ body {
   width: 18em;
   display: inline-block;
   border-top-left-radius: 100%;
-  margin-right: .5em;
-  margin-bottom: .5em;
+  //border-bottom-right-radius: 40%;
+  margin: .5em;
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1.0;
   }
 }
 
@@ -42,10 +96,15 @@ body {
   width: 18em;
   display: inline-block;
   border-top-right-radius: 100%;
-  margin-bottom: .5em;
+  //border-bottom-left-radius: 40%;
+  margin: .5em;
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1.0;
   }
 }
 
@@ -55,10 +114,15 @@ body {
   width: 18em;
   display: inline-block;
   border-bottom-left-radius: 100%;
-  margin-right: .5em;
+  //border-top-right-radius: 40%;
+  margin: .5em;
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1.0;
   }
 }
 
@@ -68,8 +132,14 @@ body {
   width: 18em;
   display: inline-block;
   border-bottom-right-radius: 100%;
+  //border-top-left-radius: 40%;
+  margin: .5em;
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1.0;
   }
 }

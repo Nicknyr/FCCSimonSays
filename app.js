@@ -5,9 +5,7 @@
 4. validate() function checks if the user advances to next level or fails
 5. If user fails the gameOver() function ends the game and returns game state to original page
 6. If it's the last level and player wins call win() function
-
 */
-
 
 var playerMoves = [];
 var aiMoves = [];
@@ -38,14 +36,15 @@ $(document).ready(function(){
   function storeClicks(){
    $('.button').each(function(elem) {
      $(this).click(function(e) {
-      playerMoves.push($(this).val());
-        console.log(playerMoves);
-
+      playerMoves.push($(this).attr('data-simonButton'));
+      console.log(playerMoves);
         // Player has made their moves, validate their moves
-          validate(playerMoves);
+        //validate(playerMoves);
       });
     });
   }
+
+storeClicks();
 
   function validate(playerMoves){
     // If player's moves are the same as AI moves player advances to next level, call nextLevel
@@ -62,15 +61,14 @@ $(document).ready(function(){
 
   function win(){
     gameOver();
-    alert('You win!');
+    //alert('You win!');
     aiTurn = true;
     playerTurn = false;
   }
 
+  function gameOver(){
 
-
-
-
+  }
 
 
 

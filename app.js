@@ -8,16 +8,61 @@
 */
 
 var playerMoves = [];
-var aiMoves = [1,2,3];
+var aiMoves = [];
 var aiTurn = true;
 var playerTurn = false;
-var lastLevel = false;
+var lastLevel = false
 
 
-
-  function start(){
-
+  function randomNumber(){
+    var num = Math.floor((Math.random() * 5) + 1);
+    console.log("Random number is " + num);
+    aiMoves.push(num);
+    return aiMoves;
   }
+
+
+
+
+  function simulateClick(moves){
+
+    for(var i = 0; i < aiMoves.length; i++) {
+        if(aiMoves[i] === 1) {
+          $('#green').on('click', function(){
+              sound1();
+              alert("Green button clicked");
+          });
+            $('#green').trigger('click');
+
+        }
+        else if(aiMoves[i] === 2) {
+          $('#red').on('click', function(){
+            sound2();
+            alert("Red button clicked");
+          })
+            $('#red').trigger('click');
+
+        }
+        else if(aiMoves[i] === 3) {
+          $('#yellow').on('click', function(){
+            sound3();
+            alert("Yellow button clicked");
+          })
+            $('#yellow').trigger('click');
+
+        }
+
+        else if(aiMoves[i] === 4) {
+        $('#blue').on('click', function(){
+          sound3();
+          alert("Blue button clicked");
+        })
+          $('#blue').trigger('click');
+
+      }
+    }
+  }
+
 
 
   function nextLevel(moves){
@@ -29,24 +74,35 @@ var lastLevel = false;
     storeClicks(moves);
   }
 
+
   function storeClicks(){
    $('.button').each(function() {
      $(this).click(function() {
         playerMoves.push($(this).attr('data-simonButton'));
-        console.log(playerMoves);
+        //console.log(playerMoves);
+        return playerMoves;
       });
     });
   }
 
+
   function validate(userMoves, computerMoves){
     // Compare playerMoves array to aiMoves array to see if player advances to next level
+    if(playerMoves.length != aiMoves.length){
+      aiTurn = true;
+      playerTurn = false;
+      //console.log("Player moves is not the same length as AI moves");
+      //gameOver();
+      return false;
+    }
+
     for(var i = 0; i < playerMoves.length; i++) {
       for(var j = 0; j < aiMoves.length; j++){
         // If playerMoves != aiMoves player loses, return false
         if(playerMoves[i] < aiMoves[j] || playerMoves[i] > aiMoves[j]) {
           aiTurn = true;
           playerTurn = false;
-          gameOver();
+          //gameOver();
           return false;
         }
         // If playersMoves === aiMoves advance to next level
@@ -65,6 +121,7 @@ var lastLevel = false;
       }
     }
   }
+
 
 
   function win(){
@@ -108,17 +165,27 @@ var lastLevel = false;
   }
 
 
+
 $(document).ready(function(){
 
-  start();
 
-  storeClicks();
+  randomNumber();
 
-  validate(playerMoves, aiMoves);
+  var x = simulateClick(aiMoves);
+  alert(x);
 
-  if(validate()){
+  //simulateClick();
+
+  //storeClicks();
+
+  //validate(playerMoves, aiMoves);
+
+  /*if(validate()){
     console.log("Yo motherfucker you just won!");
   }
+  */
+
+
 
 
   $('#green').click(function(){

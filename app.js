@@ -12,67 +12,54 @@ var aiMoves = [];
 var aiTurn = true;
 var playerTurn = false;
 var lastLevel = false
+var count = 0;
 
 
   function randomNumber(){
-    var num = Math.floor((Math.random() * 5) + 1);
+    var num = Math.floor((Math.random() * 4) + 1);
     console.log("Random number is " + num);
     aiMoves.push(num);
     return aiMoves;
   }
 
-
+  function opacity(button){
+    $(this).css('opacity', '1.0');
+  }
 
 
   function simulateClick(moves){
-
     for(var i = 0; i < aiMoves.length; i++) {
-        if(aiMoves[i] === 1) {
-          $('#green').on('click', function(){
-              sound1();
-              alert("Green button clicked");
-          });
-            $('#green').trigger('click');
-
+      if(aiMoves[i] === 1) {
+        $('#green').on('click', function(){
+          $('#green').css('opacity', '0.6');
+        });
+          $('#green').trigger('click');
+          $('#green').off();
+      }
+      else if(aiMoves[i] === 2) {
+        $('#red').on('click', function(){
+          $('#red').css('opacity', '0.6');
+        });
+          $('#red').trigger('click');
+          $('#red').off();
         }
-        else if(aiMoves[i] === 2) {
-          $('#red').on('click', function(){
-            sound2();
-            alert("Red button clicked");
-          })
-            $('#red').trigger('click');
-
+      else if(aiMoves[i] === 3) {
+        $('#yellow').on('click', function(){
+          $('#yellow').css('opacity', '0.6');
+        });
+          $('#yellow').trigger('click');
+          $('#yellow').off();
         }
-        else if(aiMoves[i] === 3) {
-          $('#yellow').on('click', function(){
-            sound3();
-            alert("Yellow button clicked");
-          })
-            $('#yellow').trigger('click');
-
-        }
-
-        else if(aiMoves[i] === 4) {
+      else if(aiMoves[i] === 4) {
         $('#blue').on('click', function(){
-          sound3();
-          alert("Blue button clicked");
-        })
+          $('#blue').css('opacity', '0.6');
+        });
           $('#blue').trigger('click');
-
+          $('#blue').off();
       }
     }
   }
 
-
-
-  function nextLevel(moves){
-    // Logic for AI's turn goes here, call storeClicks function and make it the user's turn
-    // Number of moves in aiMoves[] increases by 1, push additional element to array
-    // After AI goes it's the player's turn
-    aiTurn = false;
-    playerTurn = true;
-    storeClicks(moves);
-  }
 
 
   function storeClicks(){
@@ -169,22 +156,11 @@ var lastLevel = false
 $(document).ready(function(){
 
 
-  randomNumber();
-
-  var x = simulateClick(aiMoves);
-  alert(x);
-
-  //simulateClick();
-
-  //storeClicks();
-
-  //validate(playerMoves, aiMoves);
-
-  /*if(validate()){
-    console.log("Yo motherfucker you just won!");
-  }
-  */
-
+  var moves = function (){
+    simulateClick(randomNumber);
+    randomNumber();
+}
+  setInterval(moves, 2000);
 
 
 

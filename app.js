@@ -8,12 +8,10 @@
 */
 
 var playerMoves = [];
-var aiMoves = [];
+var aiMoves = [1];
 var aiTurn = true;
 var playerTurn = false;
-var lastLevel = false
-var count = 0;
-
+var lastLevel = false;
 
   function randomNumber(){
     var num = Math.floor((Math.random() * 4) + 1);
@@ -22,51 +20,60 @@ var count = 0;
     return aiMoves;
   }
 
-  function opacity(button){
-    $(this).css('opacity', '1.0');
+  // loop over the array using the iteratee function
+  // at the specified interval
+  function intervalForEach (array, iteratee, delay) {
+    let current = 0
+
+    let interval = setInterval(() => {
+      if (current === array.length) {
+        clearInterval(interval)
+      } else {
+        iteratee(array[current])
+        current++
+      }
+    }, delay)
   }
 
-
-  function simulateClick(moves){
-    for(var i = 0; i < aiMoves.length; i++) {
-      if(aiMoves[i] === 1) {
-        $('#green').on('click', function(){
-          $('#green').css('opacity', '0.6');
-        });
-          $('#green').trigger('click');
-          $('#green').off();
-      }
-      else if(aiMoves[i] === 2) {
-        $('#red').on('click', function(){
-          $('#red').css('opacity', '0.6');
-        });
-          $('#red').trigger('click');
-          $('#red').off();
-        }
-      else if(aiMoves[i] === 3) {
-        $('#yellow').on('click', function(){
-          $('#yellow').css('opacity', '0.6');
-        });
-          $('#yellow').trigger('click');
-          $('#yellow').off();
-        }
-      else if(aiMoves[i] === 4) {
-        $('#blue').on('click', function(){
-          $('#blue').css('opacity', '0.6');
-        });
-          $('#blue').trigger('click');
-          $('#blue').off();
-      }
+  // this will be applied to each item in the array
+  function handleMove(move) {
+    if(move === 1) {
+      sound1();
+      $('#green').addClass('active')
+      setTimeout(() => {
+        $('#green').removeClass('active')
+      }, 1000)
     }
+    else if(move === 2) {
+      sound2();
+      $('#red').addClass('active')
+      setTimeout(() => {
+        $('#red').removeClass('active')
+      }, 1000)
+    }
+    else if(move === 3) {
+      sound3();
+      $('#yellow').addClass('active')
+      setTimeout(() => {
+        $('#yellow').removeClass('active')
+      }, 1000)
+    }
+    else if(move === 4) {
+      sound4();
+      $('#blue').addClass('active')
+      setTimeout(() => {
+        $('#blue').removeClass('active')
+      }, 1000)
+    }
+    playerTurn = true;
   }
-
 
 
   function storeClicks(){
    $('.button').each(function() {
      $(this).click(function() {
         playerMoves.push($(this).attr('data-simonButton'));
-        //console.log(playerMoves);
+        console.log("Player moves: " + playerMoves);
         return playerMoves;
       });
     });
@@ -78,8 +85,8 @@ var count = 0;
     if(playerMoves.length != aiMoves.length){
       aiTurn = true;
       playerTurn = false;
-      //console.log("Player moves is not the same length as AI moves");
-      //gameOver();
+      console.log("Player moves is not the same length as AI moves");
+      gameOver();
       return false;
     }
 
@@ -89,7 +96,7 @@ var count = 0;
         if(playerMoves[i] < aiMoves[j] || playerMoves[i] > aiMoves[j]) {
           aiTurn = true;
           playerTurn = false;
-          //gameOver();
+          gameOver();
           return false;
         }
         // If playersMoves === aiMoves advance to next level
@@ -102,13 +109,13 @@ var count = 0;
           }
           else {
             nextLevel();
+            console.log("Correct moves!")
           }
           return true;
         }
       }
     }
   }
-
 
 
   function win(){
@@ -123,7 +130,6 @@ var count = 0;
     aiTurn = true;
     playerTurn = false;
   }
-
 
 
 // Sounds  ********************************************************************/
@@ -155,13 +161,22 @@ var count = 0;
 
 $(document).ready(function(){
 
-
-  var moves = function (){
-    simulateClick(randomNumber);
+  playerTurn = false;
+  if(playerTurn === false){
     randomNumber();
-}
-  setInterval(moves, 2000);
+    intervalForEach(aiMoves, handleMove, 1000);
+    playerTurn = true;
+  }
 
+
+  if(playerTurn = true){
+    storeClicks();
+  }
+
+  if(playerMoves.length === aiMoves.length){
+    validate(aiMoves, playerMoves);
+    playerTurn = false;
+  }
 
 
   $('#green').click(function(){

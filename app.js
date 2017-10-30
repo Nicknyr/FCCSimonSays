@@ -6,193 +6,176 @@
 5. If user fails the gameOver() function ends the game and returns game state to original page
 6. If it's the last level and player wins call win() function
 */
-
 var playerMoves = [];
-var aiMoves = [1];
-var aiTurn = true;
+var aiMoves = [1,2,3];
 var playerTurn = false;
 var lastLevel = false;
+var level = 0;
 
-  function randomNumber(){
+function randomNumber() {
     var num = Math.floor((Math.random() * 4) + 1);
-    console.log("Random number is " + num);
     aiMoves.push(num);
     return aiMoves;
-  }
+}
 
-  // loop over the array using the iteratee function
-  // at the specified interval
-  function intervalForEach (array, iteratee, delay) {
+// loop over the array using the iteratee function
+// at the specified interval
+function intervalForEach(array, iteratee, delay) {
     let current = 0
 
     let interval = setInterval(() => {
-      if (current === array.length) {
-        clearInterval(interval)
-      } else {
-        iteratee(array[current])
-        current++
-      }
+        if (current === array.length) {
+            clearInterval(interval)
+        } else {
+            iteratee(array[current])
+            current++
+        }
     }, delay)
-  }
+}
 
-  // this will be applied to each item in the array
-  function handleMove(move) {
-    if(move === 1) {
-      sound1();
-      $('#green').addClass('active')
-      setTimeout(() => {
-        $('#green').removeClass('active')
-      }, 1000)
-    }
-    else if(move === 2) {
-      sound2();
-      $('#red').addClass('active')
-      setTimeout(() => {
-        $('#red').removeClass('active')
-      }, 1000)
-    }
-    else if(move === 3) {
-      sound3();
-      $('#yellow').addClass('active')
-      setTimeout(() => {
-        $('#yellow').removeClass('active')
-      }, 1000)
-    }
-    else if(move === 4) {
-      sound4();
-      $('#blue').addClass('active')
-      setTimeout(() => {
-        $('#blue').removeClass('active')
-      }, 1000)
+// this will be applied to each item in the array
+function handleMove(move) {
+    if (move === 1) {
+        sound1();
+        $('#green').addClass('active')
+        setTimeout(() => {
+            $('#green').removeClass('active')
+        }, 1000)
+    } else if (move === 2) {
+        sound2();
+        $('#red').addClass('active')
+        setTimeout(() => {
+            $('#red').removeClass('active')
+        }, 1000)
+    } else if (move === 3) {
+        sound3();
+        $('#yellow').addClass('active')
+        setTimeout(() => {
+            $('#yellow').removeClass('active')
+        }, 1000)
+    } else if (move === 4) {
+        sound4();
+        $('#blue').addClass('active')
+        setTimeout(() => {
+            $('#blue').removeClass('active')
+        }, 1000)
     }
     playerTurn = true;
-  }
+}
 
 
-  function storeClicks(){
-   $('.button').each(function() {
-     $(this).click(function() {
-        playerMoves.push($(this).attr('data-simonButton'));
-        console.log("Player moves: " + playerMoves);
-        return playerMoves;
-      });
+function storeClicks() {
+    $('.button').each(function() {
+        $(this).click(function() {
+            playerMoves.push($(this).attr('data-simonButton'));
+            console.log("Player moves: " + playerMoves);
+            if(playerMoves.length === aiMoves.length){
+              validate(playerMoves, aiMoves);
+            }
+        });
     });
-  }
+}
 
 
-  function validate(userMoves, computerMoves){
-    // Compare playerMoves array to aiMoves array to see if player advances to next level
-    if(playerMoves.length != aiMoves.length){
-      aiTurn = true;
-      playerTurn = false;
-      console.log("Player moves is not the same length as AI moves");
-      gameOver();
-      return false;
+function convert(moves){
+  moves.split(',').map(function(i){
+    return parseInt(i, 10);
+  })
+}
+
+
+function runNextLevel(){
+  randomNumber();
+  intervalForEach(aiMoves, handleMove, 1000);
+  playerTurn = true;
+}
+
+// runNextLevel runs before checking ALL the elements of the array. Runs after the first iteration. arr.Prototype.every can fix this I think
+function validate(userMoves, computerMoves) {
+
+    var compare = //userMoves.length == computerMoves.length &&
+                  userMoves.every(function(element, index){
+                    return element == computerMoves[index];
+                  });
+
+    if(compare){
+      console.log("You win");
+      alert("Arrays are the same");
+      runNextLevel();
     }
-
-    for(var i = 0; i < playerMoves.length; i++) {
-      for(var j = 0; j < aiMoves.length; j++){
-        // If playerMoves != aiMoves player loses, return false
-        if(playerMoves[i] < aiMoves[j] || playerMoves[i] > aiMoves[j]) {
-          aiTurn = true;
-          playerTurn = false;
-          gameOver();
-          return false;
-        }
-        // If playersMoves === aiMoves advance to next level
-        else {
-          aiTurn = true;
-          playerTurn = false;
-          // If this is already the last level player has beaten the game
-          if(lastLevel){
-            win();
-          }
-          else {
-            nextLevel();
-            console.log("Correct moves!")
-          }
-          return true;
-        }
-      }
+    else {
+      console.log("You lose");
+      alert("Arrays are not the same");
     }
-  }
+}
 
 
-  function win(){
-    gameOver();
+function win() {
     alert('You win!');
     aiTurn = true;
     playerTurn = false;
-  }
+}
 
-  function gameOver(){
+function gameOver() {
     alert('You lose');
     aiTurn = true;
     playerTurn = false;
-  }
+}
 
 
 // Sounds  ********************************************************************/
-  function sound1(){
+function sound1() {
     var audio = new Audio();
     audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
     audio.play();
-  }
+}
 
-  function sound2(){
+function sound2() {
     var audio = new Audio();
     audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
     audio.play();
-  }
+}
 
-  function sound3(){
+function sound3() {
     var audio = new Audio();
     audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
     audio.play();
-  }
+}
 
-  function sound4(){
+function sound4() {
     var audio = new Audio();
     audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
     audio.play();
-  }
+}
 
 
 
-$(document).ready(function(){
-
-  playerTurn = false;
-  if(playerTurn === false){
-    randomNumber();
-    intervalForEach(aiMoves, handleMove, 1000);
-    playerTurn = true;
-  }
+$(document).ready(function() {
 
 
-  if(playerTurn = true){
+
+    runNextLevel();
     storeClicks();
-  }
 
-  if(playerMoves.length === aiMoves.length){
-    validate(aiMoves, playerMoves);
-    playerTurn = false;
-  }
+    console.log(playerMoves);
+    console.log(aiMoves);
 
 
-  $('#green').click(function(){
-    sound1();
-  })
 
-  $('#red').click(function(){
-    sound2();
-  })
+    $('#green').click(function() {
+        sound1();
+    })
 
-  $('#yellow').click(function(){
-    sound3();
-  })
+    $('#red').click(function() {
+        sound2();
+    })
 
-  $('#blue').click(function(){
-    sound4();
-  })
+    $('#yellow').click(function() {
+        sound3();
+    })
+
+    $('#blue').click(function() {
+        sound4();
+    })
 
 });

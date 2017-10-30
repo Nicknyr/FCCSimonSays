@@ -7,6 +7,17 @@
   $yellow:  #ffd600;
   $silver: #ecf0f1;
 
+#level {
+  width: 5em;
+  height: 1.3em;
+  background-color: $blue;
+  color: #ecf0f1;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: .5em;
+}
+
 @mixin gameButton {
   height: 16em;
   width: 18em;
@@ -24,7 +35,8 @@
 }
 
 body {
-  background-color: #90a4ae;
+  //background-color: #90a4ae;
+  background-image: url('table.jpg');
 }
 
 .active {

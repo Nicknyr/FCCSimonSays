@@ -1,6 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Nova+Flat");
+#level {
+  width: 5em;
+  height: 1.3em;
+  background-color: #2962ff;
+  color: #ecf0f1;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: .5em; }
+
 body {
-  background-color: #90a4ae; }
+  background-image: url("table.jpg"); }
 
 .active {
   opacity: 0.6; }

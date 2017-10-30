@@ -7,10 +7,10 @@
 6. If it's the last level and player wins call win() function
 */
 var playerMoves = [];
-var aiMoves = [1,2,3];
+var aiMoves = [];
 var playerTurn = false;
 var lastLevel = false;
-var level = 0;
+var level = 1;
 
 function randomNumber() {
     var num = Math.floor((Math.random() * 4) + 1);
@@ -77,13 +77,6 @@ function storeClicks() {
 }
 
 
-function convert(moves){
-  moves.split(',').map(function(i){
-    return parseInt(i, 10);
-  })
-}
-
-
 function runNextLevel(){
   randomNumber();
   intervalForEach(aiMoves, handleMove, 1000);
@@ -93,33 +86,40 @@ function runNextLevel(){
 // runNextLevel runs before checking ALL the elements of the array. Runs after the first iteration. arr.Prototype.every can fix this I think
 function validate(userMoves, computerMoves) {
 
-    var compare = //userMoves.length == computerMoves.length &&
-                  userMoves.every(function(element, index){
+    var compare =  userMoves.every(function(element, index){
                     return element == computerMoves[index];
                   });
 
     if(compare){
-      console.log("You win");
-      alert("Arrays are the same");
+      win();
+      playerMoves = [];
+      level++;
       runNextLevel();
     }
     else {
-      console.log("You lose");
-      alert("Arrays are not the same");
+      gameOver();
+      level = 0;
     }
 }
 
 
 function win() {
-    alert('You win!');
+    if(level === 20) {
+      alert("You beat the game!");
+    }
+
+    $('#level span').text(level);
+
     aiTurn = true;
     playerTurn = false;
 }
 
 function gameOver() {
-    alert('You lose');
     aiTurn = true;
     playerTurn = false;
+    aiMoves = [];
+    playerMoves = [];
+    $('#level span').text('!');
 }
 
 
@@ -151,8 +151,6 @@ function sound4() {
 
 
 $(document).ready(function() {
-
-
 
     runNextLevel();
     storeClicks();

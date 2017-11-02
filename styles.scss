@@ -8,6 +8,8 @@
   $yellow:  #ffd600;
   $silver: #ecf0f1;
 
+
+
 @mixin gameButton {
   height: 16em;
   width: 18em;
@@ -236,8 +238,8 @@ button {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 50px;
+  height: 20px;
   border: 3px solid black;
 
 }
@@ -260,10 +262,10 @@ button {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 16px;
+  width: 20px;
   left: 4px;
-  bottom: 4px;
+  bottom: 2px;
   background-color: #263238;
   -webkit-transition: .4s;
   transition: .4s;
@@ -278,9 +280,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
 }
 
 

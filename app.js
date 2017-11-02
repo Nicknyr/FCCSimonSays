@@ -11,6 +11,7 @@ var aiMoves = [];
 var playerTurn = false;
 var lastLevel = false;
 var level = 1;
+var strictMode = false;
 
 function randomNumber() {
     var num = Math.floor((Math.random() * 4) + 1);
@@ -68,7 +69,7 @@ function storeClicks() {
     $('.button').each(function() {
         $(this).click(function() {
             playerMoves.push($(this).attr('data-simonButton'));
-            console.log("Player moves: " + playerMoves);
+            //console.log("Player moves: " + playerMoves);
             if(playerMoves.length === aiMoves.length){
               validate(playerMoves, aiMoves);
             }
@@ -83,9 +84,14 @@ function runNextLevel(){
   playerTurn = true;
 }
 
+function runPreviousLevel(){
+  playerMoves = [];
+  intervalForEach(aiMoves, handleMove, 1000);
+  //storeClicks();
+}
+
 // runNextLevel runs before checking ALL the elements of the array. Runs after the first iteration. arr.Prototype.every can fix this I think
 function validate(userMoves, computerMoves) {
-
     var compare =  userMoves.every(function(element, index){
                     return element == computerMoves[index];
                   });
@@ -97,8 +103,14 @@ function validate(userMoves, computerMoves) {
       runNextLevel();
     }
     else {
-      gameOver();
-      level = 0;
+      if(strictMode === true){
+        gameOver();
+        level = 0;
+      }
+      else {
+        console.log(playerMoves);
+        runPreviousLevel();
+      }
     }
 }
 
@@ -120,7 +132,22 @@ function gameOver() {
     aiMoves = [];
     playerMoves = [];
     $('#level span').text('!');
+    $('#game-over-container').show();
+    $("#container").css({ opacity: 0.5 });
+    //gameOverSound();
+
 }
+
+ function restart(){
+   aiTurn = true;
+   playerTurn = false;
+   aiMoves = [];
+   playerMoves = [];
+   $('#game-over-container').hide();
+   $('#container').css({opacity: 1.0});
+   level++;
+   runNextLevel();
+ }
 
 
 // Sounds  ********************************************************************/
@@ -148,15 +175,29 @@ function sound4() {
     audio.play();
 }
 
+function gameOverSound(){
+  var audio = new Audio();
+  audio.src = "gameover.mp3";
+  audio.play();
+}
+
+$('#close-x').on('click', notificationClose);
+
+function notificationClose(){
+  $(this).parent('#game-over-lose').hide();
+  $('#container').css({opacity: 1.0});
+
+}
 
 
 $(document).ready(function() {
 
+    //strictMode = true;
+
     runNextLevel();
     storeClicks();
 
-    console.log(playerMoves);
-    console.log(aiMoves);
+    //console.log(playerMoves);
 
 
 

@@ -7,6 +7,15 @@
   </head>
   <body>
 
+  <div id="game-over-container">
+    <div id="game-over-lose">
+      <h2>You lose!</h2>
+      <button type="button" id="restart-button" onClick="restart()">Play again?</button>
+      <span id="close-x">X</span>
+    </div>
+  </div>
+
+
   <div id="container">
     <div id="center">
       <h2>Simon</h2>
@@ -23,7 +32,16 @@
           <button></button>
         </div>
 
-    <div id="level"><span></span></div>
+    <p class="labels">Level</p>
+    <p class="labels">Strict</p>
+
+    <div id="level">
+      <span></span>
+    </div>
+
+    <div id="strict">
+      <span></span>
+    </div>
 
       </div>
       <div id="on-off">

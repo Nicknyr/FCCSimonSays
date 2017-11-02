@@ -1,22 +1,12 @@
 
-@import url('https://fonts.googleapis.com/css?family=Nova+Flat'); // font-family: 'Nova Flat', cursive;
+@import url('https://fonts.googleapis.com/css?family=Nova+Flat|Open+Sans'); // font-family: 'Nova Flat', cursive;
+//font-family: 'Open Sans', sans-serif;
 
   $red: #d50000;
   $blue: #2962ff;
   $green:  #00c853;
   $yellow:  #ffd600;
   $silver: #ecf0f1;
-
-#level {
-  width: 5em;
-  height: 1.3em;
-  background-color: $blue;
-  color: #ecf0f1;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: .5em;
-}
 
 @mixin gameButton {
   height: 16em;
@@ -31,11 +21,93 @@
 
   &:active {
     opacity: 1.0;
+   }
+  }
+
+@mixin gameOver {
+  height: 15em;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 10%;
+  background-color: #FF5151;
+  font-weight: bolder;
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 2;
+  position: absolute;
+  border-radius: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#restart-button {
+  width: 7em;
+  border-radius: 0;
+  height: auto;
+  background-color: dimgrey;
+  color: white;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#game-over-container {
+  width: 100%;
+  display: none;
+}
+
+#game-over-lose {
+  @include gameOver;
+  color: white;
+
+  #close-x {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   cursor: pointer;
+   font-size: 16px;
+   border-radius: 50px;
+   width: 18px;
+   height: 18px;
+   line-height: 15px;
+   text-align: center;
+   border: 1px solid white;
+  }
+
+}
+
+#game-over-win {
+  @include gameOver;
+  color: green;
+}
+
+.labels {
+  width: 40%;
+  margin: auto;
+  color: white;
+  display: inline-block;
+  font-size: .8em;
+}
+
+#level {
+  width: 3em;
+  height: 1.3em;
+  background-color: $blue;
+  display: inline-block;
+  margin-right: 3.4em;
+
+  span {
+    color: white;
   }
 }
 
+#strict {
+  width: 3em;
+  height: 1.3em;
+  background-color: $red;
+  display: inline-block;
+}
+
 body {
-  //background-color: #90a4ae;
   background-image: url('table.jpg');
 }
 
@@ -54,9 +126,9 @@ body {
   border-radius: 50%;
   overflow: contain;
   text-align: center;
-  -webkit-box-shadow: 1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow:    1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Firefox 3.5 - 3.6 */
-  box-shadow:         1px 1px 4px 5px rgba(0, 0, 0, 0.4);  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  -webkit-box-shadow: 1px 1px 4px 5px rgba(0, 0, 0, 0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    1px 1px 4px 5px rgba(0, 0, 0, 0.8);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         1px 1px 4px 5px rgba(0, 0, 0, 0.8);  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 
 }
 
@@ -74,7 +146,7 @@ body {
   h2 {
     color: $silver;
     margin-top: 1em;
-    margin-bottom: .5em;
+    margin-bottom: 0;
     text-transform: uppercase;
     font-family: 'Nova Flat', cursive;
     font-weight: 800;
@@ -83,7 +155,8 @@ body {
 
   hr {
     color: white;
-    width: 95%;
+    width: 93%;
+    margin-bottom: 0;
   }
 }
 
@@ -96,7 +169,7 @@ body {
   text-align: center;
   padding-left: none;
   margin-bottom: .3em;
-  margin-top: 2.5em;
+  margin-top: 1em;
 
   li {
     display: inline-block;
@@ -111,7 +184,7 @@ button {
   width: 2.5em;
   border-radius: 100%;
   margin-top: 0;
-  margin-bottom: 1em;
+  margin-bottom: .1em;
   margin-right: 1em;
   margin-left: 1em;
   border: 3px solid black;
@@ -139,6 +212,7 @@ button {
   margin-left: 3.2em;
   height: 2.5em;
   vertical-align: top;
+  margin-top: .5em;
 
 
   #off {

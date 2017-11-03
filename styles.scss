@@ -9,7 +9,6 @@
   $silver: #ecf0f1;
 
 
-
 @mixin gameButton {
   height: 16em;
   width: 18em;
@@ -96,18 +95,22 @@
   background-color: $blue;
   display: inline-block;
   margin-right: 3.4em;
+  overflow: hidden;
+  border: 3px solid black;
 
-  span {
+  p {
     color: white;
+    padding: 0;
+    margin: 0;
   }
 }
 
 #strict {
   width: 3em;
   height: 1.3em;
-  background-color: $red;
   display: inline-block;
 }
+
 
 body {
   background-image: url('table.jpg');
@@ -162,24 +165,19 @@ body {
   }
 }
 
-#button-list {
+#reset-button {
   list-style-type: none;
-  color: white;
+  background-color: $yellow;
   font-size: .6em;
   text-transform: uppercase;
   font-weight: bold;
-  text-align: center;
-  padding-left: none;
-  margin-bottom: .3em;
-  margin-top: 1em;
-
-  li {
-    display: inline-block;
-    margin-right: 1.9em;
-    letter-spacing: .1em;
-
-  }
 }
+
+#reset-label {
+  display: block;
+  margin-top: .5em;
+}
+
 
 button {
   height: 2.5em;
@@ -190,14 +188,7 @@ button {
   margin-right: 1em;
   margin-left: 1em;
   border: 3px solid black;
-
-  &:nth-child(odd){
-    background-color: yellow;
-  }
-
-  &:nth-child(even){
-    background-color: red;
-  }
+  background-color: $green;
 
   &:hover {
     opacity: 0.7;
@@ -253,7 +244,7 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $red;
+  background-color: $green;
   -webkit-transition: .4s;
   transition: .4s;
 
@@ -272,7 +263,7 @@ button {
 }
 
 input:checked + .slider {
-  background-color: red;//#2196F3;
+  background-color: $green;//#2196F3;
 }
 
 input:focus + .slider {

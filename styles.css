@@ -68,14 +68,17 @@
   height: 1.3em;
   background-color: #2962ff;
   display: inline-block;
-  margin-right: 3.4em; }
-  #level span {
-    color: white; }
+  margin-right: 3.4em;
+  overflow: hidden;
+  border: 3px solid black; }
+  #level p {
+    color: white;
+    padding: 0;
+    margin: 0; }
 
 #strict {
   width: 3em;
   height: 1.3em;
-  background-color: #d50000;
   display: inline-block; }
 
 body {
@@ -125,20 +128,16 @@ body {
     width: 93%;
     margin-bottom: 0; }
 
-#button-list {
+#reset-button {
   list-style-type: none;
-  color: white;
+  background-color: #ffd600;
   font-size: .6em;
   text-transform: uppercase;
-  font-weight: bold;
-  text-align: center;
-  padding-left: none;
-  margin-bottom: .3em;
-  margin-top: 1em; }
-  #button-list li {
-    display: inline-block;
-    margin-right: 1.9em;
-    letter-spacing: .1em; }
+  font-weight: bold; }
+
+#reset-label {
+  display: block;
+  margin-top: .5em; }
 
 button {
   height: 2.5em;
@@ -148,11 +147,8 @@ button {
   margin-bottom: .1em;
   margin-right: 1em;
   margin-left: 1em;
-  border: 3px solid black; }
-  button:nth-child(odd) {
-    background-color: yellow; }
-  button:nth-child(even) {
-    background-color: red; }
+  border: 3px solid black;
+  background-color: #00c853; }
   button:hover {
     opacity: 0.7; }
   button:active {
@@ -193,7 +189,7 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #d50000;
+  background-color: #00c853;
   -webkit-transition: .4s;
   transition: .4s; }
 
@@ -209,7 +205,7 @@ button {
   transition: .4s; }
 
 input:checked + .slider {
-  background-color: red; }
+  background-color: #00c853; }
 
 input:focus + .slider {
   box-shadow: 0 0 1px #2196F3; }

@@ -97,10 +97,12 @@ function validate(userMoves, computerMoves) {
                   });
 
     if(compare){
+      level++;
       win();
       playerMoves = [];
-      level++;
-      runNextLevel();
+      setTimeout(function(){
+        runNextLevel();
+      }, 1500)
     }
     else {
       if(strictMode === true){
@@ -108,8 +110,11 @@ function validate(userMoves, computerMoves) {
         level = 0;
       }
       else {
-        console.log(playerMoves);
-        runPreviousLevel();
+        $('#level p').text('!');
+        setTimeout(function(){
+          runPreviousLevel();
+        }, 2000);
+
       }
     }
 }
@@ -120,7 +125,7 @@ function win() {
       alert("You beat the game!");
     }
 
-    $('#level span').text(level);
+    $('#level p').text(level);
 
     aiTurn = true;
     playerTurn = false;
@@ -131,10 +136,13 @@ function gameOver() {
     playerTurn = false;
     aiMoves = [];
     playerMoves = [];
-    $('#level span').text('!');
+    $('#level p').text('!');
     $('#game-over-container').show();
     $("#container").css({ opacity: 0.5 });
-    //gameOverSound();
+
+    setTimeout(function(){
+      gameOverSound();
+    },1000);
 
 }
 
@@ -189,17 +197,40 @@ function notificationClose(){
 
 }
 
+function toggleStrictMode() {
+  if(strictMode){
+    strictMode = false;
+  }
+  else {
+    strictMode = true;
+  }
+}
+
 
 $(document).ready(function() {
-
-    //strictMode = true;
 
     runNextLevel();
     storeClicks();
 
-    //console.log(playerMoves);
+    $('#strict-button').on('click', function(){
+      toggleStrictMode();
+    })
 
+   $('#reset-button').on('click', function(){
+     aiTurn = true;
+     playerTurn = false;
+     aiMoves = [];
+     playerMoves = [];
+     level = 1;
+     $('#level p').text('1');
+     
+     if(strictMode){
+       $('#strict-button').click();
+        strictMode = false;
+     }
 
+     runNextLevel();
+   })
 
     $('#green').click(function() {
         sound1();
